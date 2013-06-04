@@ -23,12 +23,14 @@ class MashTest < TestCase
     assert_equal "mash", @mash.name
   end
 
-  # def test_can_define_multilevel
-  #   @mash.dog!.name = "bobik"
-  #   assert_equal "bobik", @mash.dog
-  # end
+  def test_can_define_multilevel
+    @mash.dog!.name = "bobik"
+    assert_equal "bobik", @mash.dog!.name
+  end
 
-  # def test_answer_is_true_multilevel_when_not_set
-  #   assert_equal false, @mash.author_.name?
-  # end
+=begin
+  def test_answer_is_true_multilevel_when_not_set
+    assert_equal false, @mash.author.name
+  end
+=end
 end
