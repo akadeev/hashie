@@ -1,8 +1,10 @@
 require 'bundler/setup'
 Bundler.require
 
-require 'coveralls'
-Coveralls.wear!('rails')
+if ENV["TRAVIS"]
+  require 'coveralls'
+  Coveralls.wear!('rails')
+end
 
 MiniTest::Unit.autorun
 
