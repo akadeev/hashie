@@ -3,7 +3,7 @@ module Hashie
   class Mash < Hash
     def method_missing(meth, *args, &block)
       define_singleton_method(meth) do |*args|
-        if args && !args.empty?
+        if args && args.any?
           self[meth.to_s.chop] = args.first
         else
           self[meth.to_s]
