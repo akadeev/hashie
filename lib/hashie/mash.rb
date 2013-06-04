@@ -29,5 +29,8 @@ module Hashie
       self.send(meth, *args)
     end
 
+    def respond_to_missing?(method_name, include_private = false)
+      true
+    end
   end
 end
