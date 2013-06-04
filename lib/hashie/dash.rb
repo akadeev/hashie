@@ -1,9 +1,14 @@
 module Hashie
-  class Dash
+  # TODO: Override indexer & add test
 
-    def initialize
+  class Dash
+    def initialize(data = {})
       @values = self.class.values
       @attrs = self.class.attrs
+
+      data.each do |k, v|
+        @values[k] = v
+      end
     end
 
     def self.property(name, attrs = {})
