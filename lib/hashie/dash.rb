@@ -3,30 +3,35 @@ module Hashie
 
   class Dash
     def initialize(data = {})
-      @values = self.class.values
-      @attrs = self.class.attrs
+      @inst_values = self.class.values.dup
+      @inst_attrs = self.class.attrs.dup
 
       data.each do |k, v|
-        @values[k] = v
+        self.send(:"#{k}=", v)
       end
+
+      validate
     end
 
     def self.property(name, attrs = {})
       @attrs ||= {}
       @values ||= {}
+
       @attrs[name] = attrs
       if (attrs && attrs[:default])
         @values[name] = attrs[:default]
       end
 
-      define_method((name.to_s + '=').to_sym) do |*args|
-        if (@attrs[name][:required] && args && !args.first)
-          raise ArgumentError.new("#The property {name} is required for this Dash")
+      # setter
+      define_method(:"#{name}=") do |v|
+        if (@inst_attrs[name][:required] && v.nil?)
+          raise_required(name)
         end
-        @values[name] = args.first
+        @inst_values[name] = v
       end
+      # getter
       define_method(name) do
-        @values[name]
+        @inst_values[name]
       end
 
     end
@@ -37,6 +42,21 @@ module Hashie
 
     def self.values
       @values
+    end
+
+    def validate
+      # TODO: replace with some method,
+      # that is already included in ruby core
+
+      @inst_attrs.each do |k, v|
+        if (v[:required] && @inst_values[k].nil?)
+          raise_required(k)
+        end
+      end
+    end
+
+    def raise_required(name)
+      raise ArgumentError.new("The property #{name} is required for this Dash")
     end
   end
 end
