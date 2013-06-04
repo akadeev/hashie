@@ -6,10 +6,10 @@ require 'hashie/version'
 Gem::Specification.new do |spec|
   spec.name          = "hashie"
   spec.version       = Hashie::VERSION
-  spec.authors       = ["Vasiliy Yorkin"]
+  spec.authors       = ["Vasiliy Yorkin & Artem Kadeev"]
   spec.email         = ["vasiliy.yorkin@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = "Trying to build smth like hashie"
+  spec.summary       = "Workshop hashie"
   spec.homepage      = ""
   spec.license       = "MIT"
 
